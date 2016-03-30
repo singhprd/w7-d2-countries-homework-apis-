@@ -1,0 +1,20 @@
+body {
+  background-color: tomato;
+  padding: 40px;
+}
+
+* {
+  /*border: 1px solid black;*/
+}
+
+.content {
+  width: 60%;
+  padding-left: 50px;
+  margin: auto;
+  background-color: white;
+  border-radius: 5px;
+}
+
+
+}
+xw
