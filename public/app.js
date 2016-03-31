@@ -1,10 +1,10 @@
 // when the windows has loaded call function
+var foundCountry;
 window.onload = function(){
 
 console.log('App started');
 // variables   
 var countries;
-var foundCountry;
 var findCountryFromName;
 var dropDown = document.getElementById('dropdown');
 var last = localStorage.getItem('last');
@@ -51,6 +51,8 @@ request.send();
     findCountryFromName(selCountry);
     // inserts info into the table
     insertInfo(foundCountry);
+    // displays the google map of the country
+    getGoogleMap(foundCountry);
     // stores the last selected country into localstorage as a string 
     localStorage.setItem('last', foundCountry.name);
   }
@@ -90,10 +92,86 @@ request.send();
         jsonSpotString = requestSpot.responseText;
         jsonSpotString = JSON.parse(jsonSpotString);
         previewUrl = jsonSpotString.tracks.items[0].preview_url;
+        console.log(previewUrl)
         musicPlayer = document.getElementById('music-player');
         musicPlayer.src = previewUrl;
       }
     }
   }; 
 
+  // var findZoomLevel = function(area) {
+    // switch(true) {
+    //   case(area > 15000000):
+    //       return 2;
+    //       break;
+    //   case(area > 8000000 && area < 15000000):
+    //       return 3;
+    //       break;
+    //       // 500,000
+    //       // 2,000,000
+    //   case(area > 2,000,000 && area < 8000000):
+    //       return 4;
+    //       break;
+    //   case(area < 10):
+    //       return 10;
+    //       break;
+    //   case(area < 10):
+    //       return 10;
+    //       break;
+    //   case(area < 10):
+    //       return 10;
+    //       break;
+
+    //   default:
+    //       return 10
+    // }
+  // }
+
+// a = findZoomLevel(1000);
+// console.log(a);
+
+
+var findZoomLevel = function() {
+  // var geocoder = new GClientGeocoder();
+  //     geocoder.getLocations("Russia", function (locations) { 
+
+  //   // API version 3
+  //   // ... set north, south, east and west ...
+  //   var bounds = new google.maps.LatLngBounds(new google.maps.LatLng(south, west), 
+  //     new google.maps.LatLng(north, east));
+  //   map.fitBounds(bounds);
+}
+
+var getGoogleMap = function(country) {
+    lat = country.latlng[0];
+    lng = country.latlng[1];
+    var center = { lat: lat, lng: lng };
+    console.log(country.name + country.area)
+    var zoom = 20;
+    // findZoomLevel();
+    var map = new Map(center, zoom, 'map');
+    map.addMarker({lat: lat , lng: lng })
+  }
+
+    // map.bindClick();
+// GEOLOCATION STUFF
+  // var startPos;
+  // var geoSuccess = function(position) {
+  //   console.log(position.coords.latitude);
+  //   console.log(position.coords.longitude);
+  //   // map.(addInfoWindowcenter, "My info window");
+  // };
+
+  // var geoError = function(error) {
+  //   console.log('Error occurred. Error code: ' + error.code);
+  //   // error.code can be:
+  //   //   0: unknown error
+  //   //   1: permission denied
+  //   //   2: position unavailable (error response from location provider)
+  //   //   3: timed out
+  // };
+
+  // navigator.geolocation.getCurrentPosition(geoSuccess, geoError)
+
+  
 }
